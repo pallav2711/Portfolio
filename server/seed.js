@@ -1,0 +1,139 @@
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import PortfolioData from './models/PortfolioData.js';
+import { connectDB, isMongoConnected, fallbackStore } from './db.js';
+
+dotenv.config();
+
+export const seedData = {
+  name: 'Pallav Kanani',
+  title: 'MERN Stack Developer',
+  location: 'Gujarat, India',
+  email: 'pallavkanani27@gmail.com',
+  phone: '+91 6354678706',
+  whatsapp: '+91 6354678706',
+  github: 'https://github.com/pallav2711',
+  linkedin: 'https://www.linkedin.com/in/pallav-kanani-306b8b28b',
+  cgpa: '7.0 / 10',
+  educationDegree: 'B.Tech CSE, GSFC University',
+  educationYears: '2023 – 2027 (Expected)',
+  status: 'Open to Opportunities',
+  stats: {
+    experience: '2+',
+    projectsBuilt: '5+',
+    fasterDelivery: '40%',
+    apiSpeedBoost: '35%'
+  },
+  aboutQuote: 'I don\'t just write code — I architect solutions. Whether it\'s optimizing a slow MongoDB query or designing a multi-role access system, I think about the whole picture.',
+  aboutParagraphs: [
+    'I\'m a Computer Science student at GSFC University (graduating 2027) with hands-on production experience as a Full-Stack Developer at Foecht. I love building things that are fast, clean, and actually useful.',
+    'My interest in AI led me to integrate OpenAI and Gemini APIs into real products — including Crackit AI, a SaaS platform now serving real users. I\'m equally comfortable leading a team sprint or diving deep into backend optimization.',
+    'Outside of code, I\'m exploring cloud infrastructure, staying current with AI developments, and occasionally writing about what I learn.'
+  ],
+  skills: [
+    { icon: 'mern', title: 'MERN Stack Core', tags: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'Mongoose'] },
+    { icon: 'frontend', title: 'Frontend', tags: ['JavaScript ES6+', 'HTML5', 'CSS3', 'Tailwind CSS', 'Responsive Design'] },
+    { icon: 'backend', title: 'Backend & APIs', tags: ['RESTful APIs', 'JWT Auth', 'Middleware', 'Zod Validation', 'PostgreSQL'] },
+    { icon: 'ai', title: 'AI Integration', tags: ['OpenAI API', 'Gemini API', 'AI/ML', 'Prompt Engineering'] },
+    { icon: 'devops', title: 'DevOps & Tools', tags: ['Git & GitHub', 'Docker', 'Vercel', 'Postman', 'JIRA'] },
+    { icon: 'qa', title: 'QA & Project Mgmt', tags: ['Agile / Scrum', 'API Testing', 'Code Review', 'Sprint Planning', 'RBAC Design'] }
+  ],
+  experience: [
+    {
+      role: 'Full-Stack Developer',
+      company: 'Foecht',
+      dates: '2025 – 2026',
+      details: [
+        'Developed 3+ production features using MERN stack, reducing feature delivery time by 40% through reusable, well-structured components',
+        'Optimized MongoDB queries and indexes, improving API response time by 35% — identified N+1 patterns via Postman testing',
+        'Built RESTful APIs with JWT authentication, Zod validation, and robust error handling',
+        'Performed end-to-end testing across 3+ full-stack features and executed 50+ pull request reviews enforcing quality standards',
+        'Coordinated delivery using Agile methodology, managing sprint planning and cross-team technical communication'
+      ]
+    },
+    {
+      role: 'B.Tech in Computer Science & Engineering',
+      company: 'GSFC University, Gujarat',
+      dates: '2023 – 2027',
+      details: [
+        'Pursuing Bachelor of Technology with CGPA 7.0, focusing on full-stack development alongside academic studies',
+        'Coursework: Data Structures · Algorithms · Web Development · DBMS · Software Engineering'
+      ]
+    }
+  ],
+  projects: [
+    {
+      title: 'Crackit AI',
+      category: 'fullstack',
+      liveLink: 'https://crackiitai.vercel.app',
+      stack: 'React.js · Node.js · MongoDB · OpenAI API',
+      desc: [
+        'Full-stack AI SaaS career platform with JWT auth, RESTful APIs, and responsive UI serving real users',
+        'AI Resume Builder generates ATS-optimized resumes in under 30 seconds using OpenAI API',
+        'Mock Interview system with real-time AI feedback; Mock Test platform with analytics dashboard',
+        'Complete test coverage across 5 categories, validating data accuracy and edge cases'
+      ]
+    },
+    {
+      title: 'ProdFlow AI',
+      category: 'fullstack',
+      liveLink: 'https://prodflowaii.vercel.app',
+      stack: 'React.js · Node.js · MongoDB · AI/ML',
+      desc: [
+        'Led 4-member team building an AI-powered sprint planning platform with real-time dashboards',
+        'AI prediction engine analyzes sprint data to forecast outcomes and identify risks before they happen',
+        'RBAC system with 4 user roles and granular permission management',
+        'Full SDLC ownership from architecture design to production deployment using Agile methodology'
+      ]
+    }
+  ],
+  services: [
+    { icon: 'fullstack', title: 'Full-Stack Web Development', desc: 'End-to-end MERN stack applications — from database schema to responsive UI — built for performance and scale.' },
+    { icon: 'ai-integration', title: 'AI Feature Integration', desc: 'Integrate OpenAI, Gemini, and other AI APIs into your product. Chatbots, content generators, smart analytics — done right.' },
+    { icon: 'api', title: 'API Design & Optimization', desc: 'RESTful API architecture with JWT auth, Zod validation, and query optimization to cut response times significantly.' },
+    { icon: 'testing', title: 'QA & Testing', desc: 'Manual testing, API testing with Postman, integration testing, and detailed bug reports to keep your product solid.' },
+    { icon: 'coordination', title: 'Technical Project Coordination', desc: 'Sprint planning, backlog management, team coordination, and Agile delivery for technical teams and founders.' },
+    { icon: 'mvp', title: 'MVP Development', desc: 'Turn your idea into a working product fast. Architecture, build, testing, and deployment — from zero to launched.' }
+  ],
+  certifications: [
+    { name: 'Cloud Computing', issuer: 'NPTEL, IIT Kharagpur', year: '2024' },
+    { name: 'AI Fundamentals', issuer: 'Cisco Networking Academy', year: '2025' }
+  ],
+  testimonials: [
+    { quote: 'Pallav is the kind of developer who doesn\'t just complete tasks — he improves the whole process. His code reviews alone saved us from several critical production bugs. Genuinely one of the most reliable engineers I\'ve worked with.', authorName: 'Team Member, Foecht', authorRole: 'Engineering Colleague · 2025–2026', avatarLetters: 'TM' },
+    { quote: 'Leading the ProdFlow AI project with Pallav was a great experience. He understood both the technical architecture and the product vision, which made sprint planning feel effortless. The platform shipped ahead of schedule.', authorName: 'Project Collaborator', authorRole: 'ProdFlow AI Team · 2025', avatarLetters: 'PM' },
+    { quote: 'I was impressed by how Pallav approached the Crackit AI product. He built a full AI SaaS from scratch while keeping the codebase clean and the API fast. That 35% performance improvement wasn\'t accidental — it came from genuine attention to detail.', authorName: 'Early User, Crackit AI', authorRole: 'Platform Feedback · 2025', avatarLetters: 'CR' }
+  ],
+  blogs: [
+    { category: 'MERN Stack', title: 'How I Cut API Response Time by 35% with MongoDB Index Optimization', excerpt: 'A practical breakdown of how I identified N+1 query patterns using Postman and restructured indexes to dramatically improve performance in production.', date: 'May 2025', readTime: '5 min read' },
+    { category: 'AI Integration', title: 'Building an ATS Resume Generator with OpenAI API in Under a Weekend', excerpt: 'The engineering story behind Crackit AI\'s resume builder — prompt design, streaming responses, and making it fast enough to feel instant.', date: 'July 2025', readTime: '7 min read' },
+    { category: 'Project Management', title: 'Leading a Dev Team as a Student: What I Learned on ProdFlow AI', excerpt: 'Lessons from coordinating a 4-person team through a full SDLC — from architecture meetings to production bugs at 2 AM.', date: 'September 2025', readTime: '6 min read' }
+  ]
+};
+
+async function seed() {
+  await connectDB();
+  
+  if (isMongoConnected) {
+    try {
+      await PortfolioData.deleteMany({});
+      const entry = new PortfolioData(seedData);
+      await entry.save();
+      console.log('✅ Database seeded successfully in MongoDB!');
+    } catch (err) {
+      console.error('❌ Error seeding database in MongoDB:', err);
+    } finally {
+      mongoose.connection.close();
+    }
+  } else {
+    // Write fallback JSON file
+    fallbackStore.savePortfolio(seedData);
+    console.log('✅ Database fallback file (portfolio.json) seeded successfully!');
+  }
+}
+
+// If run directly, seed now
+if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('seed.js')) {
+  seed();
+}
+export default seed;

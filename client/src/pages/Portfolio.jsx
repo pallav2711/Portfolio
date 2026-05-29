@@ -179,7 +179,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/portfolio');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/portfolio`);
         if (response.ok) {
           const json = await response.json();
           setData(json);
@@ -239,7 +239,7 @@ const Portfolio = () => {
 
     setFormLoading(true);
     try {
-      const response = await fetch('/api/contacts', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contacts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ const Admin = () => {
     setLoading(true);
     setLoginError('');
     try {
-      const loginRes = await fetch('/api/admin/login', {
+      const loginRes = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password: passToVerify })
@@ -29,7 +29,7 @@ const Admin = () => {
 
       if (loginRes.ok) {
         // Authenticated! Now fetch messages
-        const msgRes = await fetch('/api/contacts', {
+        const msgRes = await fetch(`${import.meta.env.VITE_API_URL}/api/contacts`, {
           headers: { 'x-admin-password': passToVerify }
         });
 

@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://pallav-kanani-27.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
